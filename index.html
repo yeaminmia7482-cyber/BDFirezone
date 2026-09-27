@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#111827">
+    <title>BDFireZone - Play & Earn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- BDFireZone Notice Popup -->
+<div id="bdfz-notice-overlay" role="dialog" aria-modal="true" aria-labelledby="bdfz-notice-title">
+    <div id="bdfz-notice-box">
+        <div id="bdfz-notice-head">
+            <i class="fas fa-bell" aria-hidden="true"></i>
+            <span id="bdfz-notice-title">NOTICE</span>
+        </div>
+        <div id="bdfz-notice-body">
+            <div id="bdfz-notice-welcome">WELCOME TO BDFIRE ZONE 🥰</div>
+            <div id="bdfz-notice-text">ফ্রি-ফায়ার আইডির নাম গেম থেকে কপি করে
+দিবেন ক্লাসিক ম্যাচ এ গাড়ি চালানো যাবে ✅
+কিন্তু মিশা ক্যারেক্টার ইউজ করা যাবে না ❌
+সময় দেখে জয়েন করবেন। সময় মত না আসলে
+টাকা রিফান্ড দেওয়া হবে না! রুল দেখে ম্যাচ এ
+জয়েন করবেন! 📢
+উইথড্র প্রতিদিন রাতে দেওয়া হয়। ১ দিনে সর্বনিম্ন
+১০০ এবং সর্বোচ্চ ৩০০ টাকা উইথড্র দিতে
+পারবেন! ১ দিনে ১ বার এর বেশি উইথড্র দেওয়া
+যাবে না! ❌
+সবাই টেলিগ্রাম চ্যানেল এ জয়েন করেন+-✅</div>
+        </div>
+        <button id="bdfz-notice-close" type="button">Close Window</button>
+    </div>
+</div>
+
+
+    <header>
+        <div class="logo" onclick="navigate('home')">
+            <img id="header-app-icon"
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2v5v5v5v5v5v5/s1600/rrr-esports-logo.png"
+                alt="Logo" onerror="this.style.display='none';">
+            <span id="header-app-name" class="logo-text">BDFireZone</span>
+        </div>
+
+      
+            <div id="auth-nav" class="auth-buttons">
+                <button class="btn-login-nav" onclick="showAuthPage('login')">Login</button>
+                <button class="btn-reg-nav" onclick="showAuthPage('register')">Register</button>
+            </div>
+
+            <div id="user-nav" class="user-nav">
+                <div class="balance-pill" onclick="navigate('profile')">
+                    <i class="fas fa-wallet"></i> <span id="header-balance">0</span> ৳
+                </div>
+                <div class="icon-btn" onclick="toggleNotification()">
+                    <i class="fas fa-bell"></i>
+                    <div id="header-notif-badge" class="notif-badge">0</div>
+                </div>
+                <div class="icon-btn" onclick="toggleSidebar()" style="margin-left: 5px;">
+                    <img id="header-avatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                        style="width:30px; height:30px; border-radius:50%; object-fit:cover;">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar-overlay" onclick="closeAllSidebars()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-close" onclick="toggleSidebar()">×</div>
+        <div class="sidebar-header">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="sidebar-avatar" id="sidebar-avatar">
+            <div class="user-info">
+                <h4 id="sidebar-name">Guest User</h4>
+                <p id="sidebar-email">Please login</p>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li onclick="navigate('home')"><i class="fas fa-home"></i> Home</li>
+            <li onclick="navigate('profile')"><i class="fas fa-user"></i> My Account</li>
+            <li onclick="navigate('add-money')"><i class="fas fa-plus-circle"></i> Add Money</li>
+            <li onclick="navigate('withdraw')"><i class="fas fa-minus-circle"></i> Withdraw</li>
+            <li onclick="navigate('history')"><i class="fas fa-history"></i> History</li>
+            <li id="menu-telegram" onclick="openTelegram()"><i class="fab fa-telegram"></i> Join Telegram</li>
+            <li onclick="openSupport()"><i class="fas fa-headset"></i> Support</li>
+            <li id="menu-logout" class="logout-item hidden" onclick="handleLogout()"
+                style="color:red; border-top:1px solid #eee; margin-top:10px;"><i class="fas fa-sign-out-alt"></i>
+                Logout</li>
+        </ul>
+        <div id="sidebar-auth-btn" style="padding:15px;">
+            <button class="primary-btn" onclick="showAuthPage('login')">Login / Register</button>
+        </div>
+    </div>
+
+    <div class="notif-sidebar" id="notif-sidebar">
+        <div class="sidebar-close" onclick="toggleNotification()">×</div>
+        <div class="sidebar-header" style="align-items: flex-start;">
+            <h4 style="font-size: 18px; font-weight: 700;">Notifications</h4>
+            <p style="font-size:12px; color:#666;">Recent updates</p>
+        </div>
+        <div id="notif-list-container" style="overflow-y:auto; flex:1;">
+            <div style="padding:20px; text-align:center; color:#999;">No notifications</div>
+        </div>
+    </div>
+
+    <div id="login-page" class="auth-page">
+        <div class="auth-container">
+            <div style="margin-bottom:20px;">
+                <img id="login-app-icon"
+                    src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2v5v5v5v5v5v5/s1600/rrr-esports-logo.png"
+                    style="height:60px;">
+            </div>
+            <h2 class="auth-title">Login</h2>
+            <p class="auth-sub">Login to your account to continue</p>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="login-email" class="input-field" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="login-pass" class="input-field" placeholder="Enter password">
+            </div>
+
+            <button class="primary-btn" onclick="emailLogin()">Sign In</button>
+            <div style="margin:15px 0; color:#888;">or</div>
+
+            <button class="primary-btn google-btn" type="button" onclick="googleLogin()">
+                <i class="fab fa-google" style="color:#DB4437; font-size: 18px;"></i> Sign in with Google
+            </button>
+
+            <p style="margin-top:20px; font-size:14px; color:#666;">
+                Don't have an account? <span onclick="showAuthPage('register')"
+                    style="color:var(--primary); font-weight:700; cursor:pointer;">Register Now</span>
+            </p>
+            <button class="btn-cancel" onclick="closeAuthPage()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="register-page" class="auth-page">
+        <div class="auth-container">
+            <div style="margin-bottom:20px;">
+                <img id="reg-app-icon"
+                    src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2v5v5v5v5v5v5/s1600/rrr-esports-logo.png"
+                    style="height:60px;">
+            </div>
+            <h2 class="auth-title">Sign Up</h2>
+            <p class="auth-sub">Enter your information to create an account</p>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="reg-username" class="input-field" placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="number" id="reg-phone" class="input-field" placeholder="017xxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="reg-email" class="input-field" placeholder="Your Email">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="reg-pass" class="input-field" placeholder="Password">
+            </div>
+
+            <button class="primary-btn" onclick="emailRegister()">Sign Up</button>
+
+            <div style="margin:15px 0; color:#888;">or</div>
+            <button class="primary-btn google-btn" type="button" onclick="googleLogin()">
+                <i class="fab fa-google" style="color:#DB4437; font-size: 18px;"></i> Sign up with Google
+            </button>
+
+            <p style="margin-top:20px; font-size:14px; color:#666;">
+                Already have an account? <span onclick="showAuthPage('login')"
+                    style="color:var(--primary); font-weight:700; cursor:pointer;">Login Now</span>
+            </p>
+            <button class="btn-cancel" onclick="closeAuthPage()">Cancel</button>
+        </div>
+    </div>
+
+    <main id="main-content">
+
+        <section id="home" class="app-section active">
+            <div class="hero-banner">
+                  <div class="slider-container">
+                   <div id="banner-slider-wrapper" class="slider-wrapper">
+                    </div>
+                    <div class="slider-progress" id="slider-progress"></div>
+                </div>
+            </div>
+
+            <div class="section-title">Select Game Category</div>
+
+            <div id="dynamic-category-list" class="category-list">
+                <div style="text-align:center; width:100%; padding:20px; color:#999;">Loading Categories...</div>
+            </div>
+        </section>
+
+        <section id="matches-view" class="app-section">
+            <div class="back-nav" onclick="navigate('home')">
+                <i class="fas fa-arrow-left"></i> Back to Categories
+            </div>
+
+            <div class="how-to-join-btn">
+                টুর্নামেন্ট খেলার জন্য কিভাবে যোগদান করবেন ?
+            </div>
+
+            <div class="tab-container">
+                <div class="tab-btn active" id="tab-play" onclick="switchMatchTab('play')">Play</div>
+                <div class="tab-btn" id="tab-result" onclick="switchMatchTab('result')">Result</div>
+            </div>
+
+            <div id="matches-container">
+            </div>
+
+            <div class="rules-box">
+                <h4 class="rules-title">Rules & Conditions</h4>
+                <ul class="rules-list" id="dynamic-rules-list">
+                    <li><i class="fas fa-info-circle"></i> No Rules Available</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="view-joined-members" class="app-section">
+            <div class="back-nav" onclick="navigate('matches-view')">
+                <i class="fas fa-arrow-left"></i> Back to Matches
+            </div>
+            <div class="card-panel">
+                <h3 id="view-joined-title">Match Participants</h3>
+                <p style="font-size:12px; color:#666; margin-bottom:15px;">List of players who have successfully joined
+                    this match.</p>
+                <div id="joined-members-list-container">
+                </div>
+            </div>
+        </section>
+
+        <section id="match-result" class="app-section">
+            <div class="back-nav" onclick="navigate('matches-view')">
+                <i class="fas fa-arrow-left"></i> Back to Matches
+            </div>
+            <div id="result-details-container">
+            </div>
+        </section>
+
+        <section id="my-matches" class="app-section">
+            <div class="section-title">My Match</div>
+            <div class="tab-container" style="overflow-x:auto;">
+                <div class="tab-btn active" id="mm-tab-upcoming" onclick="switchMyMatchTab('upcoming')">Upcoming</div>
+                <div class="tab-btn" id="mm-tab-live" onclick="switchMyMatchTab('live')">Live</div>
+                <div class="tab-btn" id="mm-tab-completed" onclick="switchMyMatchTab('completed')">Completed</div>
+                <div class="tab-btn" id="mm-tab-won" onclick="switchMyMatchTab('won')">Won</div>
+                <div class="tab-btn" id="mm-tab-lost" onclick="switchMyMatchTab('lost')">Lost</div>
+            </div>
+            <div id="my-matches-container" style="display:flex; flex-direction:column; gap:14px;"></div>
+        </section>
+
+        <section id="profile" class="app-section">
+            <div class="card-panel" style="text-align:center;">
+                <img id="profile-page-avatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    class="profile-avatar-ring">
+                <h2 id="profile-page-name">Guest</h2>
+                <p id="profile-page-email">guest@example.com</p>
+                <p id="profile-page-phone" style="color:var(--text-gray); font-size:13px; margin-top:5px; font-weight:600;">--</p>
+            </div>
+
+            <div class="stat-cards-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="stat-card" style="align-items:center; text-align:center;">
+                    <span class="stat-card-label">Main Balance</span>
+                    <span class="stat-card-value" id="profile-page-deposit">0 ৳</span>
+                </div>
+                <div class="stat-card" style="align-items:center; text-align:center;">
+                    <span class="stat-card-label">Total Match</span>
+                    <span class="stat-card-value" id="profile-page-total-matches">0</span>
+                </div>
+                <div class="stat-card" style="align-items:center; text-align:center;">
+                    <span class="stat-card-label">+ Winning</span>
+                    <span class="stat-card-value" id="profile-page-winning" style="color:var(--success-green);">0 ৳</span>
+                </div>
+            </div>
+
+            <div class="card-panel" style="padding:8px 0;">
+                <ul class="sidebar-menu" style="padding:0;">
+                    <li onclick="navigate('my-matches')"><i class="fas fa-trophy"></i> My Match</li>
+                    <li onclick="navigate('add-money')"><i class="fas fa-plus-circle"></i> Add Money</li>
+                    <li onclick="navigate('withdraw')"><i class="fas fa-minus-circle"></i> Withdraw</li>
+                    <li onclick="navigate('history')"><i class="fas fa-history"></i> Winning / Deposit History</li>
+                    <li onclick="toggleNotification()"><i class="fas fa-bell"></i> Notifications</li>
+                    <li onclick="openTelegram()"><i class="fab fa-telegram"></i> Join Telegram</li>
+                    <li onclick="openSupport()"><i class="fas fa-headset"></i> Support</li>
+                    <li id="profile-menu-logout" class="logout-item hidden" onclick="handleLogout()"
+                        style="color:var(--youtube-red); border-top:1px solid var(--border-color); margin-top:10px;">
+                        <i class="fas fa-sign-out-alt"></i> Logout</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="add-money" class="app-section">
+            <div class="card-panel">
+                <h3>Add Money to Wallet</h3>
+        
+                <!-- Auto Payment Section -->
+                <div id="auto-pay-section" class="hidden">
+                    <label style="display:block; margin-bottom:10px; font-weight:600;">Select Payment Method:</label>
+                    
+                    <div id="auto-pay-method-selector">
+                        <div class="method-btn" data-method="bKash" onclick="selectAutoPayMethod('bKash')">
+                            <img src="https://freelogopng.com/images/all_img/1656234745bkash-app-logo-png.png" alt="bKash">
+                            <span>bKash</span>
+                        </div>
+</div>
+        
+                    <div id="auto-pay-details" class="hidden" style="margin-top: 20px;">
+                        <div class="form-group">
+                             <label>Send money to this <span id="payment-method-name"></span> number:</label>
+                            <div style="display:flex; gap:10px;">
+                                <input type="text" id="auto-pay-number" readonly class="input-field" style="font-weight:bold; color:var(--primary); background:#fff0f5;">
+                                <button class="primary-btn" style="width:auto; margin:0; padding:0 20px; font-size:13px;" onclick="copyToClipboard(document.getElementById('auto-pay-number').value)"><i class="fas fa-copy"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="auto-pay-trxid">Enter Transaction ID (TrxID)</label>
+                            <input type="text" id="auto-pay-trxid" class="input-field" placeholder="e.g., 9A4B8C1D3E">
+                        </div>
+                        <button class="primary-btn" onclick="requestAutoPayment()">রিকোয়েস্ট করুন</button>
+                    </div>
+                </div>
+        
+                <!-- Manual Payment Section (Original Code) -->
+                <div id="manual-pay-section" class="hidden">
+                    <div id="add-step-1" class="step-container active-step">
+                        <div class="form-group">
+                            <label>Enter Amount (BDT)</label>
+                            <input type="number" id="add-amount-input" class="input-field" placeholder="Minimum 20 BDT"
+                                value="">
+                        </div>
+                        <button class="primary-btn" onclick="goToPaymentMethods()">NEXT <i
+                                class="fas fa-arrow-right"></i></button>
+                    </div>
+        
+                    <div id="add-step-2" class="step-container">
+                        <div class="back-nav" onclick="showStep(1)" style="margin-bottom:15px; cursor:pointer; color:#666;">
+                            <i class="fas fa-arrow-left"></i> Change Amount
+                        </div>
+                        <p style="margin-bottom:15px; font-size:14px; color:#666;">You are adding: <strong
+                                id="display-amount-step2" style="color:var(--primary);">0 ৳</strong></p>
+                        <label style="display:block; margin-bottom:10px; font-weight:600;">Select Payment Method:</label>
+        
+                        <div class="method-btn" onclick="showPaymentDetails('Bkash')">
+                            <img src="https://freelogopng.com/images/all_img/1656234745bkash-app-logo-png.png" alt="Bkash">
+                            <span>Pay with Bkash</span>
+                            <i class="fas fa-chevron-right" style="margin-left:auto; color:#ccc;"></i>
+                        </div>
+</div>
+        
+                    <div id="add-step-bkash" class="step-container">
+                        <div class="back-nav" onclick="showStep(2)" style="margin-bottom:15px; cursor:pointer; color:#666;">
+                            <i class="fas fa-arrow-left"></i> Back to Methods
+                        </div>
+                        <div class="payment-details-box">
+                            <div class="theme-bkash-bg">
+                                <img src="https://freelogopng.com/images/all_img/1656234745bkash-app-logo-png.png"
+                                    style="height:50px; background:white; padding:5px; border-radius:50%; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+                                <h2 style="margin-top:15px; font-size:28px; font-weight:800;">৳ <span
+                                        class="final-amount-display">0</span></h2>
+                                <p style="font-size:13px; opacity:0.9;">Send Money to Personal</p>
+                            </div>
+                            <div style="padding:25px;">
+                                <label class="form-group">
+                                    <span style="font-size:12px; font-weight:600; color:#555;">Copy Bkash Number:</span>
+                                    <div style="display:flex; gap:10px; margin-top:5px;">
+                                        <input type="text" id="disp-bkash-num" value="..." readonly class="input-field"
+                                            style="font-weight:bold; color:#E2136E; background:#fff0f5; border:1px solid #E2136E;">
+                                        <button class="primary-btn"
+                                            style="width:auto; margin:0; padding:0 20px; font-size:13px; background:#E2136E;"
+                                            onclick="copyToClipboard(document.getElementById('disp-bkash-num').value)"><i
+                                                class="fas fa-copy"></i></button>
+                                    </div>
+                                </label>
+                                <div class="form-group" style="margin-top:20px;">
+                                    <label>Enter Your Sender Number</label>
+                                    <input type="number" id="bkash-sender" class="input-field" placeholder="017xxxxxxxx">
+                                </div>
+                                <div class="form-group">
+                                    <label>Enter Transaction ID (TrxID)</label>
+                                    <input type="text" id="bkash-trx" class="input-field" placeholder="8J7HGF...">
+                                </div>
+                                <button class="primary-btn" style="background:#E2136E;"
+                                    onclick="verifyPayment('Bkash')">VERIFY PAYMENT</button>
+                                <div id="bkash-deposit-message" style="display:none; margin-top:14px; padding:12px 14px; border-radius:8px; font-size:14px; font-weight:600; text-align:center;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="withdraw" class="app-section">
+            <div class="card-panel">
+                <h3>Withdraw Winning Funds</h3>
+                <p style="font-size:12px; color:#666; margin-bottom:20px;">Note: You can only withdraw your winning
+                    balance. Deposit balance cannot be withdrawn.</p>
+                <div
+                    style="background:#f0fff4; padding:10px; border:1px solid #c6f6d5; border-radius:8px; margin-bottom:20px; text-align:center;">
+                    <span style="font-size:12px; color:#2f855a;">Available for Withdraw</span>
+                    <h2 style="color:#2f855a;" id="withdraw-available-display">0 ৳</h2>
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="number" id="withdraw-amount" class="input-field" placeholder="Minimum 100">
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select id="withdraw-method" class="input-field"><option value="Bkash">Bkash</option></select>
+                </div>
+                <div class="form-group">
+                    <label>Account Number</label>
+                    <input type="text" id="withdraw-number" class="input-field" placeholder="017xxxxxxxx">
+                </div>
+                <button class="primary-btn" onclick="submitWithdraw()">Submit Request</button>
+            </div>
+        </section>
+
+        <section id="history" class="app-section">
+            <div class="card-panel">
+                <h3>Transaction History</h3>
+                <div id="history-list">
+                    <div style="text-align:center; padding:30px; color:#999;">Loading...</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="app-section">
+            <div class="card-panel">
+                <h3>Contact Support</h3>
+                <div onclick="openSupport()"
+                    style="background:#f4faff; border:1px solid #ddecff; padding:15px; border-radius:10px; margin-bottom:10px; display:flex; align-items:center; gap:15px; cursor:pointer;">
+                    <i class="fab fa-telegram" style="color:#0088cc; font-size:32px;"></i>
+                    <div>
+                        <strong style="color:#0088cc;">Telegram Support</strong>
+                        <p style="font-size:12px; color:#666;">Get instant help 24/7 regarding payment or match issues.
+                        </p>
+                    </div>
+                    <i class="fas fa-chevron-right" style="margin-left:auto; color:#ccc;"></i>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="join-modal" class="modal">
+        <div class="modal-box" style="text-align:left;">
+            <div style="text-align:center; margin-bottom:15px;">
+                <h3 id="join-modal-title" style="font-size:16px; font-weight:700;">MATCH TITLE</h3>
+                <p style="font-size:12px; color:#666;">Available Balance: <span id="join-modal-balance"
+                        style="font-weight:700; color:var(--primary);">0</span> ৳</p>
+                <p style="font-size:12px; color:#666;">Match Entry Fee: <span id="join-modal-fee"
+                        style="font-weight:700;">0</span> ৳</p>
+                <p style="font-size:12px; color:#666;">Total Join: <span id="join-modal-joined">0</span></p>
+            </div>
+
+            <div id="join-inputs-container">
+            </div>
+
+            <button class="primary-btn" onclick="confirmJoin()" style="margin-top:20px;">Join Match</button>
+            <button class="btn-cancel" onclick="closeJoinModal()">Cancel</button>
+        </div>
+    </div>
+
+
+    <div id="prize-list-modal" class="prize-modal" onclick="if(event.target===this) closePrizeList()">
+        <div class="prize-sheet">
+            <div class="prize-head">
+                <h3 id="prize-list-title">🏆 Prize List</h3>
+                <button class="prize-close" onclick="closePrizeList()" aria-label="Close">×</button>
+            </div>
+            <div id="prize-total-box" class="prize-total"></div>
+            <div id="prize-list-content"></div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav" id="user-bottom-nav">
+        <div class="bottom-nav-item bn-active" id="bn-play" onclick="navigate('home')">
+            <i class="fas fa-gamepad"></i>
+            <span>Play</span>
+        </div>
+        <div class="bottom-nav-item" id="bn-my-matches" onclick="navigate('my-matches')">
+            <i class="fas fa-trophy"></i>
+            <span>My Match</span>
+        </div>
+        <div class="bottom-nav-fab" onclick="navigate('add-money')">
+            <button aria-label="Add Money"><i class="fas fa-plus"></i></button>
+        </div>
+        <div class="bottom-nav-item" id="bn-add-money" onclick="navigate('add-money')">
+            <i class="fas fa-wallet"></i>
+            <span>Add Money</span>
+        </div>
+        <div class="bottom-nav-item" id="bn-profile" onclick="navigate('profile')">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </div>
+    </nav>
+
+
+<script type="module" src="script.js"></script>
+</body>
+
+</html>
